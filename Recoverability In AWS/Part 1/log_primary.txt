@@ -1,0 +1,103 @@
+Last login: Sat Apr 22 12:29:44 on ttys000
+ducnguyenhuu@Ducs-MBP ~ % ssh -i /Users/ducnguyenhuu/Documents/udacity-keypair.pem ec2-user@ec2-18-232-88-6.compute-1.amazonaws.com
+
+ssh: connect to host ec2-18-232-88-6.compute-1.amazonaws.com port 22: Operation timed out
+ducnguyenhuu@Ducs-MBP ~ % ssh -i /Users/ducnguyenhuu/Documents/udacity-keypair.pem ec2-user@ec2-18-232-88-6.compute-1.amazonaws.com
+
+^C
+ducnguyenhuu@Ducs-MBP ~ % ssh -i /Users/ducnguyenhuu/Documents/udacity-keypair.pem ec2-user@ec2-34-228-237-15.compute-1.amazonaws.com
+The authenticity of host 'ec2-34-228-237-15.compute-1.amazonaws.com (34.228.237.15)' can't be established.
+ED25519 key fingerprint is SHA256:0oBgl8YgBk0b65AdC2RPFTGS+L7Wtwyx2g/XjzI957k.
+This host key is known by the following other names/addresses:
+    ~/.ssh/known_hosts:1: ec2-18-232-88-6.compute-1.amazonaws.com
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'ec2-34-228-237-15.compute-1.amazonaws.com' (ED25519) to the list of known hosts.
+   ,     #_
+   ~\_  ####_        Amazon Linux 2023
+  ~~  \_#####\
+  ~~     \###|
+  ~~       \#/ ___   https://aws.amazon.com/linux/amazon-linux-2023
+   ~~       V~' '->
+    ~~~         /
+      ~~._.   _/
+         _/ _/
+       _/m/'
+Last login: Sat Apr 22 16:29:51 2023 from 98.62.181.21
+[ec2-user@ip-10-1-10-80 ~]$ mysql -h udacity.cdqmm7iipja4.us-east-1.rds.amazonaws.com -p 3306 -u admin -p
+Enter password: 
+ERROR 1049 (42000): Unknown database '3306'
+[ec2-user@ip-10-1-10-80 ~]$ mysql -h udacity.cdqmm7iipja4.us-east-1.rds.amazonaws.com -p 3306 -u admin
+Enter password: 
+ERROR 1049 (42000): Unknown database '3306'
+[ec2-user@ip-10-1-10-80 ~]$ mysql -h udacity.cdqmm7iipja4.us-east-1.rds.amazonaws.com  -u admin
+ERROR 1045 (28000): Access denied for user 'admin'@'10.1.10.80' (using password: NO)
+[ec2-user@ip-10-1-10-80 ~]$ mysql -h udacity.cdqmm7iipja4.us-east-1.rds.amazonaws.com  -p 3306
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'ec2-user'@'10.1.10.80' (using password: YES)
+[ec2-user@ip-10-1-10-80 ~]$ mysql -h udacity.cdqmm7iipja4.us-east-1.rds.amazonaws.com -P 3306 -u admin
+ERROR 1045 (28000): Access denied for user 'admin'@'10.1.10.80' (using password: NO)
+[ec2-user@ip-10-1-10-80 ~]$ mysql -h udacity.cdqmm7iipja4.us-east-1.rds.amazonaws.com -P 3306 -u admin -p duckhanh
+Enter password: 
+ERROR 1049 (42000): Unknown database 'duckhanh'
+[ec2-user@ip-10-1-10-80 ~]$ mysql -h udacity.cdqmm7iipja4.us-east-1.rds.amazonaws.com  -u admin
+ERROR 1045 (28000): Access denied for user 'admin'@'10.1.10.80' (using password: NO)
+[ec2-user@ip-10-1-10-80 ~]$ mysql -h udacity.cdqmm7iipja4.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 56
+Server version: 8.0.32 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> create table FirstTable_Udacity(ID int, Lastname varchar(255));
+ERROR 1046 (3D000): No database selected
+MySQL [(none)]> use udacity; create table FirstTable_Udacity(ID int, Lastname varchar(255));
+ERROR 1049 (42000): Unknown database 'udacity'
+ERROR 1046 (3D000): No database selected
+MySQL [(none)]> udacity
+    -> create table FirstTable_Udacity(ID int, Lastname varchar(255));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'udacity
+create table FirstTable_Udacity(ID int, Lastname varchar(255))' at line 1
+MySQL [(none)]> udacity
+    -> show tables
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'udacity
+show tables' at line 1
+MySQL [(none)]> show tables;
+ERROR 1046 (3D000): No database selected
+MySQL [(none)]> select udacity;
+ERROR 1054 (42S22): Unknown column 'udacity' in 'field list'
+MySQL [(none)]> database udacity
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database udacity' at line 1
+MySQL [(none)]> create database udacity_1;
+Query OK, 1 row affected (0.020 sec)
+
+MySQL [(none)]> show tables;
+ERROR 1046 (3D000): No database selected
+MySQL [(none)]> use udacity_1;
+Database changed
+MySQL [udacity_1]> create table FirstTable(
+    -> ID int,
+    -> Firstname varchar(30));
+Query OK, 0 rows affected (0.300 sec)
+
+MySQL [udacity_1]> insert into FirstTable(1,"Duc");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"Duc")' at line 1
+MySQL [udacity_1]> insert into FirstTable(UD, Firstname)
+    -> values (1, "Duc");
+ERROR 1054 (42S22): Unknown column 'UD' in 'field list'
+MySQL [udacity_1]> insert into FirstTable(ID, Firstname) values (1, "Duc");
+Query OK, 1 row affected (0.010 sec)
+
+MySQL [udacity_1]> Select * from FirstTable;
++------+-----------+
+| ID   | Firstname |
++------+-----------+
+|    1 | Duc       |
++------+-----------+
+1 row in set (0.001 sec)
+
+MySQL [udacity_1]> 
